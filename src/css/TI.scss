@@ -1,0 +1,139 @@
+@use '@carbon/react';
+
+h1 {
+	color: #0062ff;
+}
+
+h2 {
+    color: #f6f7f8;
+    font-size: 1.225rem;
+}
+
+i {
+    font-style: italic;
+}
+
+.header {
+    background: #0062ff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.adjust-right {
+    padding-left: 21rem;
+}
+
+.content-adjust {
+    padding: 5rem;
+}
+
+.card-wrapper {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    width: 20rem;
+    height: 30rem;
+
+    .card-login {
+        text-align: left;
+        font-weight: bold;
+        font-size: 1.225rem;
+    }
+
+    .card-info {
+        text-align: left;
+    }
+
+    img {
+        width: 18rem;
+        padding: 1rem;
+    }
+}
+
+.repo-submenu {
+    margin-left: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+}
+
+.adjust-button {
+    margin-top: 1rem;
+}
+
+.cds--accordion__title {
+	font-weight: bold;
+	z-index: 0;
+}
+
+.cds--accordion__content {
+	padding-right: 15px;
+}
+
+.cds--accordion__item {
+	border-top: none;
+}
+
+.cds--accordion__heading {
+	background: #0062ff;
+	color: white;
+}
+
+.cds--accordion__item--active .cds--accordion__arrow {
+	fill: white;
+}
+
+.cds--accordion__arrow {
+	fill: white;
+}
+
+.cds--accordion__heading:hover {
+	background: rgb(8, 128, 218)
+}
+
+#show-disabled-text {
+    .cds--text-input:disabled {
+        -webkit-text-fill-color: black !important
+    }
+    .cds--text-area:disabled {
+        color: black !important;
+    }
+    .cds--label--disabled, .cds--form__helper-text--disabled {
+        color: black !important;
+    }
+}
+
+.cds--data-table-header {
+    padding: 1rem 0 1rem 1rem;
+    background: #0062ff;
+  }
+  
+  .cds--data-table-header__title {
+    color: white;
+  }
+  
+  .cds--data-table thead th.cds--table-column-checkbox {
+    padding-right: 2rem;
+  }
+
+  .cds--data-table.cds--data-table--sort th > .cds--table-header-label {
+    text-align: center;
+  }
+
+  .cds--data-table-content {
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 34rem;
+    background-color: rgb(242 242 242);
+  }
+
+  .offset {
+    text-align: right;
+    margin-top: 5rem;
+  }
+
+  .offset-right {
+    text-align: right;
+  }
