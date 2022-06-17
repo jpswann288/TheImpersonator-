@@ -1,6 +1,5 @@
 import axios from "axios"
 import { createAction } from "redux-actions"
-import credentials from "../../credentials/credentials.json"
 export const GET_USERS_REPOS = createAction("GET_USERS_REPOS")
 export const GET_REPO_LANGUAGE = createAction("GET_REPO_LANGUAGE")
 export const GET_REPO_STARS = createAction("GET_REPO_STARS")
