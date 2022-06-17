@@ -21,7 +21,7 @@ import {
   TextInput,
   TextArea
 } from "carbon-components-react";
-import { Add, Download, TrashCan, Query, LogoGithub } from "@carbon/icons-react";
+import { Add, Download, TrashCan, Query, LogoGithub, Edit } from "@carbon/icons-react";
 import { CSVLink } from "react-csv";
 import StaticData from "../../credentials/staticData.json"
 
@@ -58,6 +58,7 @@ class TheChallange extends React.Component {
       endIndex: 10,
       selectedRepos: [],
       deleteModal: false,
+      createModal: false,
       statusMessage: "Click '+ Add Repository(s)' to append data",
       url: ''
     };
@@ -122,7 +123,11 @@ class TheChallange extends React.Component {
 
   async getLanguage(url) {
     let language = await this.props.dispatch(getRepoLanguage(url));
-    return language.join(",");
+    if(language) {
+      return language.join(",");
+    } else {
+      return []
+    }
   }
 
   addRepositorys() {
@@ -131,6 +136,31 @@ class TheChallange extends React.Component {
           this.setState({selectedRepos: this.state.selectedRepos})
       }
   }
+
+  createRepository() {
+    let obj = {
+      description: this.state.modalDesc,
+      id: Math.random(),
+      label: this.state.modalName,
+      language: this.state.modalLang,
+      stargazersCount: this.state.modalCount,
+      url: this.state.modalUrl,
+      value: this.state.modalName,
+    }
+    this.state.selectedRepos.push(obj)
+    this.setState({selectedRepos: this.state.selectedRepos, createModal: false})
+    this.clearModal()
+}
+
+clearModal() {
+  this.setState({
+    modalDesc: '',
+    modalName: '',
+    modalLang: '',
+    modalCount: '',
+    modalUrl: ''
+  })
+}
 
   deleteRepositorys(selectedRows) {
     for(let i=selectedRows.length-1; i>=0; i--) {
@@ -284,12 +314,10 @@ class TheChallange extends React.Component {
               <Table {...getTableProps()}>
                 <TableHead>
                   <TableRow>
-                    <React.Fragment>
                       <TableSelectAll
                         {...getSelectionProps()}
                         className="bx--stick-header-checkbox"
                       />
-                    </React.Fragment>
                     {headers.map((header) => (
                       <TableHeader
                         {...getHeaderProps({ header })}
@@ -303,9 +331,7 @@ class TheChallange extends React.Component {
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow key={row.id} id={row.id + ":repo-header"}>
-                      <React.Fragment>
                         <TableSelectRow {...getSelectionProps({ row })} />
-                      </React.Fragment>
                       {row.cells.map((cell) => (
                         <TableCell
                           key={cell.id}
@@ -464,18 +490,112 @@ class TheChallange extends React.Component {
               <Query size={20}/>&emsp;Search Repository(s)
             </Button>
           </div>
-          <div className="bx--col-lg-4 adjust-button">
-          <Link to={"/TheChallange/CreateRepository"}>
-            <Button>
+          <div className="bx--col-lg-2 adjust-button">
+            <Button onClick={event => this.setState({createModal:true})} >
               <LogoGithub size={20} />&emsp;Create Repository
             </Button>
-            </Link>
           </div>
         </div>
         <br />
         <br />
       </React.Fragment>
     );
+  }
+
+  buildForm() {
+    return (
+      <React.Fragment>
+        <br />
+        <div className="bx--row">
+          <div className="bx--col-lg-8">
+            <h1>Create Repoistory</h1>
+          </div>
+        </div>
+        <br />
+        <br />
+        <Accordion id="RESULTS">
+          <AccordionItem title="Create Repoistory" open={true}>
+            <div className="bx--row">
+              <div className="bx--col-lg-6">
+                <TextInput
+                  id="REPO_OWNER"
+                  value={this.state.modalName}
+                  labelText="Full Name*"
+                  onChange={(text) => {
+                    this.setState({ modalName: text.target.value });
+                  }}
+                />
+              </div>
+              <div className="bx--col-lg-6">
+                <TextInput
+                  id="REPO_NAME"
+                  value={this.state.modalLang}
+                  labelText="Language(s)"
+                  onChange={(text) => {
+                    this.setState({ modalLang: text.target.value });
+                  }}
+                />
+              </div>
+            </div>
+            <br />
+            <br />
+            <div className="bx--row">
+              <div className="bx--col-lg-6">
+                <TextInput
+                   id="STAR_COUNT"
+                   value={this.state.modalCount}
+                   labelText="Stargazer Count"
+                  onChange={(text) => {
+                    this.setState({ modalCount: text.target.value });
+                  }}
+                 />
+              </div>
+              <div className="bx--col-lg-6">
+              <TextInput
+                  id="REPO_URL"
+                  labelText="Language(s)"
+                  value={this.state.modalUrl}
+                  onChange={(text) => {
+                    this.setState({ modalUrl: text.target.value });
+                  }}
+                />
+              </div>
+            </div>
+            <br />
+            <br />
+            <div className="bx--row">
+              <div className="bx--col-lg-6">
+                <TextArea
+                  id="REPO_DESC"
+                  labelText="Description"
+                  value={this.state.modalDesc}
+                  onChange={(text) => {
+                    this.setState({ modalDesc: text.target.value });
+                  }}
+                />
+              </div>
+            </div>
+          </AccordionItem>
+        </Accordion>
+      </React.Fragment>
+    );
+  }
+
+  buildCreateModal() {
+    return( 
+      <Modal
+            id="create-repo-modal"
+            open={this.state.createModal}
+            passiveModal={false}
+            primaryButtonText="Create"
+            secondaryButtonText="Cancel"
+            onRequestSubmit={(event) => this.createRepository() }
+            onRequestClose={() => this.setState({ createModal: false })}
+            size='lg'
+          >
+              {this.buildForm()}
+      </Modal>
+    )
   }
 
   render() {
@@ -487,6 +607,7 @@ class TheChallange extends React.Component {
             active={this.props.repoStatus.status}
             className="loading"
           />
+          {this.buildCreateModal()}
           {this.buildSearchFilters()}
           {this.buildResults()}
         </div>

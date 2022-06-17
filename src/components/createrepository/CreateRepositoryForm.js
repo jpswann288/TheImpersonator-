@@ -10,8 +10,6 @@ import {
   RadioButton,
   FormGroup
 } from "carbon-components-react";
-import { Link } from "react-router-dom";
-import { Add, ChevronLeft } from "@carbon/icons-react";
 import { createRepository } from "../globalActions/GlobalActions";
 
 class CreateRepositoryForm extends React.Component {
@@ -45,14 +43,6 @@ class CreateRepositoryForm extends React.Component {
         <div className="bx--row">
           <div className="bx--col-lg-8">
             <h1>Create Repoistory</h1>
-          </div>
-          <div className="bx--col-lg-4 adjust-button offset-right">
-            <Link to="/TheChallange">
-              <Button>
-                <ChevronLeft size={20} />
-                &emsp;Back
-              </Button>
-            </Link>
           </div>
         </div>
         <br />
@@ -114,19 +104,6 @@ class CreateRepositoryForm extends React.Component {
                     />
                   </RadioButtonGroup>
                 </FormGroup>
-              </div>
-              <div className="bx--col-lg-4 adjust-button offset">
-                <Button
-                  onClick={(event) => this.createRepository()}
-                  disabled={
-                    this.state.owner.length && this.state.name.length
-                      ? false
-                      : true
-                  }
-                >
-                  <Add size={20} />
-                  &emsp;Create Repository
-                </Button>
               </div>
             </div>
           </AccordionItem>
