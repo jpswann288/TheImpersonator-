@@ -1,18 +1,17 @@
-.bx--header {
+.footer {
     position: fixed;
-    z-index: 8000;
-    top: 0;
-    right: 0;
-    left: 0;
+    bottom: 0;
     display: flex;
-    height: 3.425rem;
+    height: 6rem;
     align-items: center;
     border-bottom: 1px solid #393939;
     background-color: rgb(36 104 232);
+    width: 100%;
+    justify-content: center;
 }
 
-.header-title {
+.footer-title {
     color: #f6f7f8;
-    font-size: 2.225rem;
+    font-size: 1rem;
     font-weight: bold;
 }

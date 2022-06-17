@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import {
   getRepoLanguage,
   getRepoStars,
@@ -21,8 +20,7 @@ import {
   TextInput,
   TextArea
 } from "carbon-components-react";
-import { Add, Download, TrashCan, Query, LogoGithub, Edit } from "@carbon/icons-react";
-import { CSVLink } from "react-csv";
+import { Add, TrashCan, Query, LogoGithub } from "@carbon/icons-react";
 import StaticData from "../../credentials/staticData.json"
 
 const {
@@ -226,31 +224,8 @@ clearModal() {
     this.setState({ repos: sortedData });
   }
 
-  download(data, fileName) {
-    let headers = [
-      { key: "label", label: "Full Name" },
-      { key: "description", label: "Description" },
-      { key: "language", label: "Language(s)" },
-      { key: "stargazersCount", label: "Stargazer Count" },
-      { key: "url", label: "Url" },
-    ];
-    return (
-      <CSVLink data={data} headers={headers} filename={fileName}>
-        <Button
-          disabled={this.props.action === "view"}
-          className="button-margin button-with-icon"
-        >
-          <Download size={20} name="icon--download" />&emsp;Export
-        </Button>
-      </CSVLink>
-    );
-  }
-
   buildTable() {
     let table = <DataTableSkeleton></DataTableSkeleton>;
-    let exportButton = <React.Fragment />;
-
-    exportButton = this.download(this.state.selectedRepos, "User_Repos");
 
     table = (
       <div id="manage-user-table">
@@ -344,8 +319,6 @@ clearModal() {
                   ))}
                 </TableBody>
               </Table>
-              <br />
-              {exportButton}
             </TableContainer>
           )}
         />
@@ -491,7 +464,7 @@ clearModal() {
             </Button>
           </div>
           <div className="bx--col-lg-2 adjust-button">
-            <Button onClick={event => this.setState({createModal:true})} >
+            <Button onClick={event => this.setState({createModal:true})} disabled={this.state.repos.length <= 0 ? true : false}>
               <LogoGithub size={20} />&emsp;Create Repository
             </Button>
           </div>

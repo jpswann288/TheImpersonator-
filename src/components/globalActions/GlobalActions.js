@@ -16,11 +16,7 @@ export function searchRepos(owner) {
         }
 
 		axios
-			.get(url, {
-                headers: {
-                    Authorization: `token ${credentials.token}`
-                }
-            })
+			.get(url)
 			.then(function (response) {
                 let data = response.data
                 dispatch(RETURN_STATUS({status: false}))
@@ -39,11 +35,7 @@ export function searchRepos(owner) {
 export function getRepoLanguage(url) {
 	return async function (dispatch) {
 		return await axios
-			.get(url, {
-                headers: {
-                    Authorization: `token ${credentials.token}`
-                }
-            })
+			.get(url)
 			.then(function (response) {
 				let data = response.data
                 let languages = []
@@ -65,11 +57,7 @@ export function getRepoLanguage(url) {
 export function getRepoStars(url) {
 	return async function (dispatch) {
 		return await axios
-			.get(url, {
-                headers: {
-                    Authorization: `token ${credentials.token}`
-                }
-            })
+			.get(url)
 			.then(function (response) {
 				let data = response.data
 				return data

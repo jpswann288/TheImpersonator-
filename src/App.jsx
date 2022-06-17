@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import HeaderNew from "./Header";
+import FooterNew from "./Footer";
 import TheChallange from "./components/thechallange/TheChallange";
 import CreateRepositoryForm from "./components/createrepository/CreateRepositoryForm"
 
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path="/TheChallange" component={TheChallange} />
               <Route path="/TheChallange/CreateRepository" component={CreateRepositoryForm} />
           </Switch>
+          <FooterNew />
         </React.Fragment>
       </Router>
     );
