@@ -2,8 +2,8 @@ version: '3.7'
 
 services:
 
-  thechallange:
-    container_name: thechallange
+  theimpersonator:
+    container_name: theimpersonator
     build:
       context: .
       dockerfile: Dockerfile

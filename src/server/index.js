@@ -12,12 +12,7 @@ app.use("/*", (req, res) => {
 });
 
 app.get("/", (req, res, next) => {
-    // res.redirect("/TheChallange");
-    if (!req.session || !req.session.baseUrl) {
-      res.redirect("/login");
-    } else {
-      next();
-    }
+    res.redirect("/TheChallange");
 });
 
 app.listen(PORT, () => {
